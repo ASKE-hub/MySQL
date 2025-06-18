@@ -1,0 +1,122 @@
+/*
+-- task 1
+select
+	first_name,
+    last_name,
+    email,
+    store_id
+from staff
+
+-- task 2
+select
+	store_id,
+	count(case when store_id = 1 THEN inventory_id else NULL END) AS store_no_1,
+    count(case when store_id = 2 THEN inventory_id else NULL END) AS store_no_2
+from inventory
+group by store_id
+
+-- task 3 
+select
+	store_id,
+	count(active) as active_customer
+from customer
+group by store_id
+
+-- task 4
+select distinct
+	email
+from customer
+
+-- task 5 !
+select
+	special_features,
+	count(distinct title)
+from film
+group by special_features
+
+-- task 6 watch
+select
+	film_id,
+   case 
+    when replacement_cost > 15 then 'too_expencive'
+	when replacement_cost > 5 then 'expencive'
+	else 'check logic'
+end as hhhh,
+avg replacement_cost
+from film
+group by film_id
+
+-- task 7 
+select
+	sum(film_id),
+	max(rental_rate),
+    avg(rental_rate)
+from film 
+group by
+	rating
+    
+select
+customer_id,
+	count(rental_id) as rental_times
+from rental
+group by customer_id
+order by customer_id desc
+*/
+
+-- correction
+
+/*
+-- task 2 correction
+	select
+	store_id,
+	count(inventory_id) as total
+from inventory
+group by store_id
+
+-- task 3 
+select
+	store_id,
+	count(customer_id) as active_customer
+from customer
+where active = 1 
+group by store_id
+
+-- task 4
+select 
+	count(email) as emails
+from customer
+
+
+select
+	store_id,
+    count(distinct film_id) as unique_film
+from inventory
+	group by store_id;
+    
+select
+	count(distinct name) as unique_category
+from category
+
+-- task 6
+select
+	min(replacement_cost) as least,
+    max(replacement_cost) as max,
+    avg(replacement_cost) as avg
+from film
+
+-- task 7 
+select
+	avg(amount) as avg_payment,
+    max(amount) as max_payment
+from payment 
+
+-- task 8
+select
+customer_id,
+	count(rental_id) as rental_times
+from rental
+group by customer_id
+order by 
+	count(rental_id) desc;
+
+*/

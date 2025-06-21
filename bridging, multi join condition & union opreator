@@ -1,0 +1,57 @@
+/*
+select
+	film.film_id,
+    film.title,
+    category.name as ctegory
+from film
+	inner join film_category
+    on film.film_id = film_category.film_id
+    inner join category
+    on film_category.category_id = category.category_id
+-- multi condition
+select
+	actor.first_name,
+	actor.last_name,
+    count(film.title) as total_apperance
+from film
+	inner join film_actor
+    on film.film_id = film_actor.film_id
+    inner join actor
+    on film_actor.actor_id = actor.actor_id
+    group by actor.first_name,actor.last_name
+    order by first_name
+-- i made a bridge here for no reason
+select distinct
+	film.title,
+    film.description
+from film
+	inner join inventory
+    on film.film_id = inventory.film_id
+    inner join store
+    on inventory.store_id = store.store_id
+    and store.store_id = 2 
+-- union
+select
+    'advisor' as type,
+    first_name,
+    last_name
+from advisor  
+union
+select
+	'investor' as type,
+    first_name,
+    last_name
+from investor
+-- union opreator
+select
+	'staff' as type,
+    first_name,
+    last_name
+from staff
+union
+select
+	'adivsor' as type,
+    first_name,
+    last_name
+from advisor
+*/

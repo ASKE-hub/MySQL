@@ -1,0 +1,138 @@
+-- final project
+-- task 1
+/*
+select
+	staff.first_name as manger_first_name,
+    staff.last_name as manger_last_name,
+    address.address,
+    address.district,
+    city.city,
+    country.country
+from store
+	left join staff
+    on store.store_id = staff.store_id
+    left join address
+    on store.address_id = address.address_id
+    left join city
+    on address.city_id = city.city_id
+    left join country
+    on city.country_id = country.country_id
+    
+    select 
+		inventory.store_id,
+        inventory.inventory_id,
+        film.title,
+        film.rating,
+        film.rental_rate,
+        film.replacement_cost
+	from inventory
+		left join film
+        on inventory.film_id = film.film_id
+        limit 5000
+        
+	-- task 3
+	select
+		inventory.store_id,
+		film.rating,
+		count(inventory.inventory_id) as total_items
+    from inventory
+		left join film
+        on inventory.film_id = film.film_id
+	group by
+		inventory.store_id,
+		film.rating;
+
+-- task 4
+    select
+		store_id,
+        category.name as category,
+		count(inventory.inventory_id) as films,
+        avg(film.replacement_cost) as avg_re_cost,
+        sum(film.replacement_cost) as to_re_cost
+	from inventory
+		left join  film
+        on inventory.film_id = film.film_id
+        left join film_category
+        on film.film_id = film_category.film_id
+        left join category
+        on film_category.category_id = category.category_id
+	group by 
+		store_id,
+        category.name
+    
+    -- task 5 
+   select
+		customer.first_name,
+        customer.last_name,
+        customer.store_id,
+        customer.active,
+        address.address,
+        city.city,
+        country.country
+   from customer
+		left join address
+        on customer.address_id = address.address_id
+        left join city
+        on address.city_id = city.city_id
+        left join country
+        on city.country_id = country.country_id
+    
+    -- task 6
+    select
+        customer.first_name,
+        customer.last_name,
+        count(payment.rental_id) as life_time_rentals,
+        sum(payment.amount) as total_amounts
+    from customer
+		left join payment
+        on customer.customer_id = payment.customer_id
+	group by customer.first_name,
+        customer.last_name 
+order by total_amounts desc
+
+-- task 7
+select
+'investor' as type,
+first_name,
+last_name,
+company_name
+from investor
+union
+select
+'advisor' as type,
+first_name,
+last_name,
+'N/A'
+from advisor
+
+-- task 8
+select
+	case
+		when actor_award.awards = 'Emmy, Oscar, Tony' then'3 awards'
+		when actor_award.awards in ('Emmy,Oscar','Emmy,Tony','Oscar,Tony') then'2 awards'
+        else '1 award'
+        end as no_of_awards,
+        avg(case when actor_award.actor_id is null then 0 else 1 end) as pct
+from actor_award
+group by 
+		case
+        when actor_award.awards = 'Emmy, Oscar, Tony ' then '3 awards'
+		when actor_award.awards = ('Emmy, Oscar','Emmy, Tony', 'Oscar, Tony') then '2 awards'
+        else '1 award'
+end
+
+SELECT
+  CASE
+    WHEN awards = 'Emmy, Oscar, Tony ' THEN '3 awards'
+    WHEN awards IN ('Emmy, Oscar','Emmy, Tony', 'Oscar, Tony') THEN '2 awards'
+    ELSE '1 award'
+  END AS no_of_awards,
+  AVG(CASE WHEN actor_id IS NOT NULL THEN 1 ELSE 0 END) AS pct
+FROM actor_award
+GROUP BY
+CASE
+    WHEN awards = 'Emmy, Oscar, Tony ' THEN '3 awards'
+    WHEN awards IN ('Emmy, Oscar','Emmy, Tony', 'Oscar, Tony') THEN '2 awards'
+    ELSE '1 award'
+  END 
+  */

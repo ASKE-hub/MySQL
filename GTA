@@ -1,0 +1,118 @@
+-- GTA
+-- objective 1
+/*
+select * from stolen_vehicles;
+
+select
+distinct date_stolen,
+count(vehicle_id)
+from stolen_vehicles
+group by date_stolen
+
+limit 5000;
+
+select
+year(date_stolen), count(vehicle_id)
+from stolen_vehicles
+group by year(date_stolen);
+
+select
+year(date_stolen), month(date_stolen), count(vehicle_id) as v_num
+from stolen_vehicles
+group by year(date_stolen), month(date_stolen)
+order by year(date_stolen), month(date_stolen);
+
+select
+year(date_stolen), month(date_stolen), day(date_stolen), count(vehicle_id) as v_num
+from stolen_vehicles
+where month(date_stolen) = 4
+group by year(date_stolen), month(date_stolen), day(date_stolen)
+order by year(date_stolen), month(date_stolen), day(date_stolen);
+
+select
+	dayofweek(date_stolen),
+	case when dayofweek(date_stolen) = 1 then 'sunday'
+		when dayofweek(date_stolen) = 2 then 'monday'
+        when dayofweek(date_stolen) = 3 then 'tuesday'
+        when dayofweek(date_stolen) = 4 then 'wednesday'
+        when dayofweek(date_stolen) = 5 then 'thursday'
+        when dayofweek(date_stolen) = 6 then 'friday'
+       else 'saturday' end as days,
+	count(vehicle_id) as v_num
+from stolen_vehicles
+group by dayofweek(date_stolen), days
+order by dayofweek(date_stolen);
+
+-- objective 2
+
+select 
+*
+from stolen_vehicles;
+
+
+select 
+vehicle_type,
+count(vehicle_id) as nu
+from stolen_vehicles
+group by vehicle_type
+order by nu desc
+limit 5;
+
+select 
+vehicle_type,
+count(vehicle_id) as nu
+from stolen_vehicles
+group by vehicle_type
+order by nu 
+limit 5;
+
+select 
+vehicle_type, avg(year(date_stolen) - model_year) as average
+from stolen_vehicles
+group by vehicle_type
+order by average desc;
+
+with lux_standard as (select 
+vehicle_type, case when make_type = 'Luxury' then 1 else 0 end as Luxury, 1 as all_type
+from stolen_vehicles
+left join make_details 
+on stolen_vehicles.make_id = make_details.make_id)
+select vehicle_type, sum(luxury) / sum(all_type) * 100 as percantage
+from lux_standard
+group by vehicle_type
+order by percantage desc;
+
+-- objective 3
+
+select 
+*
+from stolen_vehicles left join locations
+	ON stolen_vehicles.location_id = locations.location_id;
+
+select 
+l.region,  count(sv.vehicle_id) as num_veh, l.population as popu, l.density as density
+from stolen_vehicles sv left join locations l
+	ON sv.location_id = l.location_id
+group by l.region, density, popu;
+
+
+
+
+
+(SELECT 'High Density', sv.vehicle_type, COUNT(sv.vehicle_id) AS num_vehicles
+FROM stolen_vehicles sv LEFT JOIN locations l
+ON sv. location_id = l.location_id
+WHERE l.region IN ('Auckland', 'Nelson', 'Wellington')
+GROUP BY sv.vehicle_type
+ORDER BY num_vehicles DESC
+LIMIT 5)
+UNION
+
+(SELECT 'Low Density', sv.vehicle_type, COUNT(sv.vehicle_id) AS num_vehicles
+FROM stolen_vehicles sv LEFT JOIN locations l
+ON sv. location_id = l.location_id
+WHERE l.region IN ('Otago', 'Gisborne', 'Southland')
+GROUP BY sv.vehicle_type
+ORDER BY num_vehicles DESC
+LIMIT 5);
+*/

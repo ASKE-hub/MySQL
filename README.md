@@ -1,46 +1,66 @@
-# 🧠 SQL Portfolio – Data Exploration & Business Insights
+# 🧠 SQL Portfolio – Real-World Data Insights with SQL
 
-Welcome to my **SQL Projects Repository**!  
-Here you'll find a collection of my work where I use **SQL** to explore real-world datasets, extract insights, and solve business problems across various domains.
+Welcome to my **SQL portfolio** – a collection of hands-on projects showcasing my ability to analyze, clean, and transform data using pure SQL. These projects span across industries and use real-world datasets to deliver meaningful insights and business recommendations.
 
-## 🚀 About Me
+## 📌 About Me
 
-I'm passionate about transforming raw data into meaningful stories using the power of **SQL**.  
-From data cleaning and transformation to advanced analytical queries and KPI reporting — I’ve built and shared a wide range of **hands-on SQL projects**.
+I'm a data enthusiast with strong skills in **SQL querying, data modeling, and storytelling**. I use SQL not only as a querying language but as a powerful analytical tool to solve business problems, uncover trends, and communicate insights effectively.
 
-## 🛠️ What’s Inside
+---
 
-This repo includes:
+## 📁 Featured Projects
 
-- ✅ **Advanced SQL Queries** on sales, customer behavior, operations, crime data, and more  
-- 📁 Multiple **thematic repositories** (e.g., restaurant analytics, vehicle theft, complaint tracking)  
-- 📊 Integration with Excel, Power BI & visualization tools for full-stack data storytelling  
-- 💡 Insights from real datasets — turned into actionable recommendations
+### 🔗 [📊 Name Fame – Baby Name Analytics](https://github.com/ASKE-hub/baby-namies-sql)
+- **Skills used:** `RANK()`, `ROW_NUMBER()`, `CTE`, `JOIN`, `CASE`, string functions  
+- **Highlights:** Trends in naming by year, region, and gender. Androgynous names, name lengths, and fun fact queries like "Where is Chris most popular?"
 
-## 📂 Projects List
+### 🔗 [🚘 Stolen Vehicle Analysis](https://github.com/ASKE-hub/GTA-sql)
+- **Skills used:** grouping, aggregation, `CASE`, conditional joins, `PIVOT`, heatmap data prep  
+- **Highlights:** Identified patterns in theft timing, vehicle types, colors, and geographic regions with density/population correlation
 
-| Project | Description |
-|--------|-------------|
-| 🔗 [Restaurant Menu & Orders](https://github.com/your-username/restaurant-sql-analysis) | Analyze menu pricing, top orders, and customer trends |
-| 🔗 [Vehicle Theft Analysis](https://github.com/your-username/stolen-vehicles-sql) | Discover when, where, and what gets stolen |
-| 🔗 [Consumer Complaints Tracker](https://github.com/your-username/consumer-complaints-sql) | Track complaint patterns with status timelines |
-| 🔗 [Production Line Efficiency](https://github.com/your-username/production-efficiency-sql) | Optimize downtime and operator performance |
+### 🔗 [📦 Hospital Analytics](https://github.com/ASKE-hub/consumer-Hospital-Analytics-sql)
+- **Skills used:** status flags, date manipulation, KPI calculation, `WEEK()` logic  
+- **Highlights:** Open vs. closed complaint trends, regional differences, visual timeline filtering
 
-> 🔎 More projects coming soon! Each repo contains full documentation, queries, and visuals.
+### 🔗 [🍽️ Restaurant Order Analytics](https://github.com/your-username/restaurant-sql)
+- **Skills used:** joins, revenue calculation, frequency analysis, top-spending customers  
+- **Highlights:** Top dishes by revenue, most/least ordered items, customer spending patterns
 
-## 📌 Skills Highlighted
+---
 
-- SQL (CTEs, JOINS, GROUP BY, CASE, Window Functions)
-- Data Cleaning & Profiling
-- KPI Analysis
-- Dashboard Integration (Excel, Power BI)
-- Data Storytelling
+## 🛠️ SQL Tools & Techniques
+
+- ✔️ Complex Joins & Filtering
+- ✔️ Subqueries & CTEs
+- ✔️ Window Functions (`RANK()`, `LAG()`, `ROW_NUMBER()`)
+- ✔️ Aggregation & Grouping
+- ✔️ Time Series Analysis
+- ✔️ String & Date Manipulation
+- ✔️ Data Cleaning & Profiling
+- ✔️ Business KPIs with SQL
+
+---
+
+## 📊 Sample Use Cases
+
+- Time-based trends & rankings  
+- Regional or demographic breakdowns  
+- Customer behavior & segmentation  
+- Operational performance metrics  
+- Pattern detection in categorical data
+
+---
 
 ## 📧 Let's Connect
 
 Feel free to check out the repos, fork a project, or reach out if you'd like to collaborate or chat about data!
 
 [LinkedIn](http://linkedin.com/in/abubkr-eltaib-885839b0) | [GitHub](https://github.com/ASKE-hub) | [Email](abubkrsami@gmail.com)
+
+---
+
+Thanks for stopping by!
+
 
 
 

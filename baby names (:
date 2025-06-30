@@ -1,0 +1,226 @@
+-- objective 1
+-- Find the overall most popular girl and boy names and show how they have changed in popularity rankings over the years
+-- Find the names with the biggest jumps in popularity from the first year of the data set to the last year
+
+select	
+	name, sum(births) as num_babies
+from names
+where gender = 'f'
+group by name
+order by num_babies desc
+limit 1; -- Jessica
+
+select	
+	name, sum(births) as num_babies
+from names
+where gender = 'm'
+group by name
+order by num_babies desc
+limit 1; -- Michael
+
+with girl_names as (select year, name, sum(births) as num_babies
+from names
+where gender = 'f'
+group by year, name)
+select 
+	year, name,
+	row_number () over (partition by year order by num_babies desc) as popularity
+    from girl_names;
+    
+select * from
+(with girl_names as (select year, name, sum(births) as num_babies
+from names
+where gender = 'f'
+group by year, name)
+select 
+	year, name,
+	row_number () over (partition by year order by num_babies desc) as popularity
+    from girl_names) as popular_girl_name
+    where name = 'Jessica';
+    
+    select * from
+(with boy_names as (select year, name, sum(births) as num_babies
+from names
+where gender = 'm'
+group by year, name)
+select 
+	year, name,
+	row_number () over (partition by year order by num_babies desc) as popularity
+    from boy_names) as popular_boy_name
+    where name = 'Michael';
+    
+    with all_names as (select year, name, sum(births) as num_babies
+from names
+group by year, name)
+select 
+	year, name,
+	row_number () over (partition by year order by num_babies desc) as popularity
+    from all_names as popular_boy_name;
+   
+ with names_1980 as  
+			   (with all_names as (select year, name, sum(births) as num_babies
+		from names
+		group by year, name)
+		select 
+			year, name,
+			row_number () over (partition by year order by num_babies desc) as popularity
+			from all_names as popular_all_name
+            where year = 1980),
+    
+    
+ names_2009 as  
+			   (with all_names as (select year, name, sum(births) as num_babies
+		from names
+		group by year, name)
+		select 
+			year, name,
+			row_number () over (partition by year order by num_babies desc) as popularity
+			from all_names as popular_all_name
+            where year = 2009)
+
+select * from names_1980 t1 inner join names_2009 t2
+			on t1.name = t2.name;
+            
+
+ with names_1980 as  
+			   (with all_names as (select year, name, sum(births) as num_babies
+		from names
+		group by year, name)
+		select 
+			year, name,
+			row_number () over (partition by year order by num_babies desc) as popularity
+			from all_names as popular_all_name
+            where year = 1980),
+    
+    
+ names_2009 as  
+			   (with all_names as (select year, name, sum(births) as num_babies
+		from names
+		group by year, name)
+		select 
+			year, name,
+			row_number () over (partition by year order by num_babies desc) as popularity
+			from all_names as popular_all_name
+            where year = 2009)
+
+select t1.name, t1.year, t1.popularity, t2.name, t2.year, t2.popularity,
+		cast(t1.popularity as signed) - cast(t2.popularity as signed) as deff
+from names_1980 t1 inner join names_2009 t2
+			on t1.name = t2.name
+order by deff desc;
+
+-- objective 2
+-- For each year, return the 3 most popular girl names and 3 most popular boy names
+-- For each decade, return the 3 most popular girl names and 3 most popular boy names
+
+select * from
+(with babies_by_year as (select
+name, year, gender, sum(births) as num_babies
+from names
+group by name, year, gender)
+select year, gender, name, num_babies,
+	row_number() over(partition by year, gender order by num_babies desc) as popularity
+from babies_by_year) as top_3
+where popularity < 4;
+    
+select * from
+(with babies_by_decades as (select	(case when year between 1980 and 1989 then '80"s'
+										  when year between 1990 and 1999 then '90"s'
+										  when year between 2000 and 2009 then 'twenties'
+                                          else null end) as decades,
+name, gender, sum(births) as num_babies
+from names
+group by name, decades, gender)
+select decades, gender, name, num_babies,
+	row_number() over(partition by decades, gender order by num_babies desc) as popularity
+from babies_by_decades) as top_3
+where popularity < 4;
+
+-- objective 3
+-- Return the number of babies born in each of the six regions (NOTE: The state of MI should be in the Midwest region)
+-- Return the 3 most popular girl names and 3 most popular boy names within each region
+
+with clean_regions as (select State, case when region = 'New England' then 'New_England' else Region end as clean_region from regions)
+select distinct clean_region from clean_regions;
+
+with clean_regions as (select State, case when region = 'New England' then 'New_England' else Region end as clean_region from regions
+union
+select 'MI' as state, 'Midwest' as region)
+select distinct n.State, cr.clean_region from names n left join clean_regions cr
+										on n.State = cr.state;
+
+with clean_regions as (select State, case when region = 'New England' then 'New_England' else Region end as clean_region from regions
+union
+select 'MI' as state, 'Midwest' as region)
+select clean_region, sum(Births) as num_babies
+from names n left join clean_regions cr
+										on n.State = cr.state
+group by clean_region;
+
+select * from
+(with babies_by_region as
+	   (with clean_regions as (select State, case when region = 'New England' then 'New_England' else Region end as clean_region from regions
+	union
+	select 'MI' as state, 'Midwest' as region)
+	select cr.clean_region, n.Gender, n.Name, sum(n.Births) as num_babies
+	from names n left join clean_regions cr
+											on n.State = cr.state
+	group by cr.clean_region, n.Gender, n.Name)
+select clean_region, gender, name,
+		row_number() over (partition by clean_region, gender order by num_babies desc) as popularity
+from babies_by_region) as region_popularity
+where popularity < 4;
+
+
+-- objective 4
+-- Find the 10 most popular androgynous names (names given to both females and males)
+-- Find the length of the shortest and longest names, and identify the most popular short names (those with the fewest characters) and long names (those with the most characters)
+-- The founder of Maven Analytics is named Chris. Find the state with the highest percent of babies named "Chris"
+
+select name, count(distinct gender) as num_gender, sum(Births) as num_babies
+from names
+group by name
+having num_gender = 2
+order by num_babies desc
+limit 10;
+
+with unisex_names as( select name, count(distinct gender) as num_gender
+from names
+group by name)
+select * from unisex_names
+where num_gender = 2;
+
+select name, length(name) as name_length
+from names
+group by name
+order by name_length; -- 2
+
+
+select name, length(name) as name_length
+from names
+group by name
+order by name_length desc; -- 15
+
+
+with short_long_name as (select 
+* from names
+where length(name) in (2,15))
+select name, sum(births) as num_babies
+from short_long_name
+group by name
+order by num_babies desc;
+
+
+select state, num_chris / num_babies * 100 as pct_chris 
+from
+	(with count_chris as (select state, sum(births) as num_chris
+	from names
+	where name = 'chris'
+	group by state),
+
+	count_all as (select state, sum(births) as num_babies
+	from names
+	group by state)
+	select cc.state, cc.num_chris, ca.num_babies from count_chris cc inner join count_all ca
+					on cc.state = ca.state) as count_chris_all
+	order by pct_chris desc;

@@ -10,11 +10,11 @@ I'm a data enthusiast with strong skills in **SQL querying, data modeling, and s
 
 ## 📁 Featured Projects
 
-### 🔗 [📊 Name Fame – Baby Name Analytics](https://github.com/ASKE-hub/baby-namies-sql)
+### 🔗 [📊 Name Fame – Baby Name Analytics][(https://github.com/ASKE-hub/baby-namies-sql)](https://github.com/ASKE-hub/MySQL/blob/main/baby%20names%20(%3A)
 - **Skills used:** `RANK()`, `ROW_NUMBER()`, `CTE`, `JOIN`, `CASE`, string functions  
 - **Highlights:** Trends in naming by year, region, and gender. Androgynous names, name lengths, and fun fact queries like "Where is Chris most popular?"
 
-### 🔗 [🚘 Stolen Vehicle Analysis](https://github.com/ASKE-hub/GTA-sql)
+### 🔗 [🚘 Stolen Vehicle Analysis]([https://github.com/ASKE-hub/GTA-sql](https://github.com/ASKE-hub/MySQL/blob/main/GTA))
 - **Skills used:** grouping, aggregation, `CASE`, conditional joins, `PIVOT`, heatmap data prep  
 - **Highlights:** Identified patterns in theft timing, vehicle types, colors, and geographic regions with density/population correlation
 
@@ -22,7 +22,7 @@ I'm a data enthusiast with strong skills in **SQL querying, data modeling, and s
 - **Skills used:** status flags, date manipulation, KPI calculation, `WEEK()` logic  
 - **Highlights:** Open vs. closed complaint trends, regional differences, visual timeline filtering
 
-### 🔗 [🍽️ Restaurant Order Analytics](https://github.com/your-username/restaurant-sql)
+### 🔗 [🍽️ Restaurant Order Analytics]([https://github.com/your-username/restaurant-sql](https://github.com/ASKE-hub/MySQL/blob/main/restaurant_project))
 - **Skills used:** joins, revenue calculation, frequency analysis, top-spending customers  
 - **Highlights:** Top dishes by revenue, most/least ordered items, customer spending patterns
 

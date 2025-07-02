@@ -1,0 +1,138 @@
+-- Connect to database 
+USE hospital_db;
+
+-- OBJECTIVE 1: ENCOUNTERS OVERVIEW
+
+-- a. How many total encounters occurred each year?
+
+select*from encounters;
+
+select distinct year(start), count(id) as num_encounters
+from encounters
+group by year(start);
+
+-- b. For each year, what percentage of all encounters belonged to each encounter class
+-- (ambulatory, outpatient, wellness, urgent care, emergency, and inpatient)?
+
+select year(start) as yr,
+	round(sum(case when encounterclass =	'ambulatory' then 1 else 0 end)	/ count(*)	*  100,	1)	as	ambulatory ,
+	round(sum(case when encounterclass =	'outpatient' then 1 else 0 end)	/ count(*)	*  100,	1)	as	outpatient,
+	round(sum(case when encounterclass =	'wellness' then 1 else 0 end)	/ count(*)	*  100,	1)	as	wellness,
+	round(sum(case when encounterclass =	'urgentcare' then 1 else 0 end)	/ count(*)	*  100,	1)	as	urgent_care,
+	round(sum(case when encounterclass =	'emergency' then 1 else 0 end)	/ count(*)	*  100,	1)	as	emergency,
+	round(sum(case when encounterclass =	'inpatient' then 1 else 0 end)	/ count(*)	*  100,	1)	as	inpatient
+from encounters
+group by yr
+order by yr;
+
+
+SELECT
+    YEAR(start) AS year,
+    encounterclass,
+	COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (PARTITION BY YEAR(start)) AS percentage
+FROM
+    encounters
+GROUP BY
+    YEAR(start),
+    encounterclass
+ORDER BY
+	year,
+    percentage desc;
+
+-- c. What percentage of encounters were over 24 hours versus under 24 hours?
+
+select
+	COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (PARTITION BY YEAR(start)) AS percentage,
+	hour(start)-hour(stop) as hour_spent
+ from encounters; 
+ 
+select
+count(timestampdiff(hour, start, stop)) as time_diff
+from encounters
+where timestampdiff(hour, start, stop) >= 24;
+
+select
+count(timestampdiff(hour, start, stop)) as time_diff
+from encounters
+where timestampdiff(hour, start, stop) < 24;
+
+select 
+		round(sum(case when timestampdiff (hour, start, stop) >=24 then 1 else 0 end) / count(*) *100, 1) as over_24,
+		round(sum(case when timestampdiff (hour, start, stop) <24 then 1 else 0 end) / count(*) *100, 1) as under_24
+from encounters;
+
+-- OBJECTIVE 2: COST & COVERAGE INSIGHTS
+
+-- a. How many encounters had zero payer coverage, and what percentage of total encounters does this represent?
+
+select 
+sum(case when payer_coverage = 0 then 1 else 0 end ) as zero_payer_coverage,
+count(*) as total_encounters,
+round(sum(case when payer_coverage = 0 then 1 else 0 end ) / count(*) * 100, 1) as zero_payer_coverage_pct
+from encounters; 
+
+-- b. What are the top 10 most frequent procedures performed and the average base cost for each?
+
+select code, description, count(*) as num_procedures, avg(base_cost) as avg_cost
+from procedures
+group by code, description
+order by num_procedures desc
+limit 10;
+
+-- c. What are the top 10 procedures with the highest average base cost and the number of times they were performed?
+
+select code, description, avg(base_cost) as avg_cost, count(*) as num_procedures
+from procedures
+group by code, description
+order by avg_cost desc
+limit 10;
+
+
+-- d. What is the average total claim cost for encounters, broken down by payer?
+
+select 
+PAYERS.NAME, avg(ENCOUNTERS.TOTAL_CLAIM_COST) AS AVG_T_C
+from PAYERS LEFT JOIN encouNters
+	ON  PAYERS.ID = encouNters.PAYER 
+group by PAYERS.NAME
+order by AVG_T_C desc;
+
+-- OBJECTIVE 3: PATIENT BEHAVIOR ANALYSIS
+
+-- a. How many unique patients were admitted each quarter over time?
+
+select
+year(start) as yr, quarter(start) as Qrtr, count(distinct patient) as Num_Patient
+from encounters
+group by yr, Qrtr
+order by  yr, Qrtr;
+
+-- b. How many patients were readmitted within 30 days of a previous encounter?
+
+select 
+	patient, start, stop,
+    lead(start) over(partition by patient order by start) as next_start_date
+from encounters
+order by patient, start;
+
+with cte as (select 
+	patient, start, stop,
+    lead(start) over(partition by patient order by start) as next_start_date
+from encounters)
+select count(distinct patient) as num_patient
+from cte
+where datediff(next_start_date, stop) < 30;
+
+
+-- c. Which patients had the most readmissions?
+
+
+with cte as (select 
+	patient, start, stop,
+    lead(start) over(partition by patient order by start) as next_start_date
+from encounters)
+select patient, count(*) as num_readdmition
+from cte
+where datediff(next_start_date, stop) < 30
+group by patient
+order by num_readdmition desc;

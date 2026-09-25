@@ -1,67 +1,36 @@
-# 🧠 SQL Portfolio – Real-World Data Insights with SQL
+# SQL Analytics Portfolio
 
-Welcome to my **SQL portfolio** – a collection of hands-on projects showcasing my ability to analyze, clean, and transform data using pure SQL. These projects span across industries and use real-world datasets to deliver meaningful insights and business recommendations.
+**MySQL · Business questions · Exploratory analysis**
 
-## 📌 About Me
+SQL projects exploring customer behavior, healthcare encounters, vehicle theft, and naming trends. Browse the case studies below to see the questions and queries.
 
-I'm a data enthusiast with strong skills in **SQL querying, data modeling, and storytelling**. I use SQL not only as a querying language but as a powerful analytical tool to solve business problems, uncover trends, and communicate insights effectively.
+## Explore the projects
 
----
+| Project | Analytical focus | Techniques |
+| --- | --- | --- |
+| [Baby name trends](baby%20names%20%28%3A) | Popularity by year, decade, gender, and region | CTEs, window functions, joins |
+| [Stolen vehicle analysis](GTA) | Theft timing, vehicle characteristics, and regional patterns | Aggregations, CASE, joins, UNION |
+| [Hospital encounters](Hospital_analysis) | Encounter mix, procedure costs, payer coverage, and readmissions | Date functions, conditional aggregation, LEAD |
+| [Restaurant orders](restaurant_project) | Menu prices, popular dishes, and highest-spending orders | Joins, grouping, ranking by aggregates |
+| [Film store exercises](films_store_project) | Inventory, customers, rentals, and payments | Filtering, aggregation, CASE |
+| [Final SQL project](final%20project) | Additional multi-table business queries | Joins and grouped summaries |
 
-## 📁 Featured Projects
+## SQL practice
 
-### 🔗 [📊 Name Fame – Baby Name Analytics][(https://github.com/ASKE-hub/baby-namies-sql)](https://github.com/ASKE-hub/MySQL/blob/main/baby%20names%20(%3A)
-- **Skills used:** `RANK()`, `ROW_NUMBER()`, `CTE`, `JOIN`, `CASE`, string functions  
-- **Highlights:** Trends in naming by year, region, and gender. Androgynous names, name lengths, and fun fact queries like "Where is Chris most popular?"
+- [Joins](joins)
+- [Conditional counts](case%26count)
+- [Bridge tables, multiple join conditions, and UNION](bridging%2C%20multi%20join%20condition%20%26%20union%20opreator)
 
-### 🔗 [🚘 Stolen Vehicle Analysis]([https://github.com/ASKE-hub/GTA-sql](https://github.com/ASKE-hub/MySQL/blob/main/GTA))
-- **Skills used:** grouping, aggregation, `CASE`, conditional joins, `PIVOT`, heatmap data prep  
-- **Highlights:** Identified patterns in theft timing, vehicle types, colors, and geographic regions with density/population correlation
+## How to explore
 
-### 🔗 [📦 Hospital Analytics](https://github.com/ASKE-hub/consumer-Hospital-Analytics-sql)
-- **Skills used:** status flags, date manipulation, KPI calculation, `WEEK()` logic  
-- **Highlights:** Open vs. closed complaint trends, regional differences, visual timeline filtering
+1. Open a linked file to read its questions and SQL.
+2. To execute queries, use a MySQL environment supporting CTEs and window functions.
+3. Import the corresponding source tables and select the database named in the script.
+4. Run one query at a time and inspect the result.
 
-### 🔗 [🍽️ Restaurant Order Analytics]([https://github.com/your-username/restaurant-sql](https://github.com/ASKE-hub/MySQL/blob/main/restaurant_project))
-- **Skills used:** joins, revenue calculation, frequency analysis, top-spending customers  
-- **Highlights:** Top dishes by revenue, most/least ordered items, customer spending patterns
-
----
-
-## 🛠️ SQL Tools & Techniques
-
-- ✔️ Complex Joins & Filtering
-- ✔️ Subqueries & CTEs
-- ✔️ Window Functions (`RANK()`, `LAG()`, `ROW_NUMBER()`)
-- ✔️ Aggregation & Grouping
-- ✔️ Time Series Analysis
-- ✔️ String & Date Manipulation
-- ✔️ Data Cleaning & Profiling
-- ✔️ Business KPIs with SQL
+The repository contains query scripts and learning exercises; source databases and schema setup files are not included. Several files contain commented-out drafts or corrections and are intended for selective execution, rather than running the entire file as a production script.
 
 ---
 
-## 📊 Sample Use Cases
-
-- Time-based trends & rankings  
-- Regional or demographic breakdowns  
-- Customer behavior & segmentation  
-- Operational performance metrics  
-- Pattern detection in categorical data
-
----
-
-## 📧 Let's Connect
-
-Feel free to check out the repos, fork a project, or reach out if you'd like to collaborate or chat about data!
-
-[LinkedIn](http://linkedin.com/in/abubkr-eltaib-885839b0) | [GitHub](https://github.com/ASKE-hub) | [Email](abubkrsami@gmail.com)
-
----
-
-Thanks for stopping by!
-
-
-
-
-
+**Abubkr Sami · Data Analytics**  
+[GitHub](https://github.com/ASKE-hub) · [LinkedIn](https://www.linkedin.com/in/abubkr-eltaib-885839b0)
